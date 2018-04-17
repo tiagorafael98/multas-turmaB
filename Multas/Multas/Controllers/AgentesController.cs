@@ -87,7 +87,21 @@ namespace Multas.Controllers
             //Escrever os dados de um novo Agente na BD
 
             //Especificar o ID do novo Agente
-            int idNovoAgente = db.Agentes.Max(a => a.ID) + 1;
+            //Testar se há registos na tabela dos Agentes
+            //if (db.Agentes.Count()!=0) { }
+
+            // ou então, usar a instrução TRY/CATCH
+            int idNovoAgente = 0;
+            try {
+                idNovoAgente = db.Agentes.Max(a => a.ID) + 1;
+
+            }
+            catch (Exception) {
+                idNovoAgente = 1;
+            }
+            //Guardar o ID do novo Agente
+            agente.ID = idNovoAgente;
+
             //Guardar o ID do novo agente
             agente.ID = idNovoAgente;
             //Especificar (escolher) o nome do ficheiro
@@ -120,15 +134,20 @@ namespace Multas.Controllers
             //ModelState.IsValid --> confronta os dados fornecidos com o modelo, se não respeitar as regras
             //do modelo, rejeita os dados
             if (ModelState.IsValid) {
-            // adiciona na estrutura de dados, na memória do servidor, o objeto Agentes
-                db.Agentes.Add(agente);
-                //faz 'commit' na BD
-                db.SaveChanges();
-                //Escrever o ficheiro com a fotografia no disco rígido, na pasta
-                uploadFotografia.SaveAs(path);
-                //redireciona o utilizador para a página de inicio
-                return RedirectToAction("Index");
-            }
+                try {
+                    // adiciona na estrutura de dados, na memória do servidor, o objeto Agentes
+                    db.Agentes.Add(agente);
+                    //faz 'commit' na BD
+                    db.SaveChanges();
+                    //Escrever o ficheiro com a fotografia no disco rígido, na pasta
+                    uploadFotografia.SaveAs(path);
+                    //redireciona o utilizador para a página de inicio se correr tudo bem
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ) {
+                    ModelState.AddModelError("", "Houve um erro com a criação do Novo Agente...");
+                }
+             }
 
             //Devolve os dados do agente à View
             return View(agente);
