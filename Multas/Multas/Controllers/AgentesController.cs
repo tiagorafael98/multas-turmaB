@@ -237,13 +237,24 @@ namespace Multas.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            //Procurar o agente
-            Agentes agentes = db.Agentes.Find(id);
-            //Remover da memória
-            db.Agentes.Remove(agentes);
-            //Commit na BD
-            db.SaveChanges();
-            return RedirectToAction("Index");
+          Agentes agente = db.Agentes.Find(id);
+            try {
+                //Procurar o agente
+               
+                //Remover da memória
+                db.Agentes.Remove(agente);
+                //Commit na BD
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex) {
+               ModelState.AddModelError("", string.Format("Não é possível apagar o Agente nº {0} - {1}, porque há multas associadas a ele...", 
+                                            id,agente.Nome)
+                   );
+            }
+            //Se cheguei aqui é pq houve um problema
+            //Devolvo os dados do Agente à View
+            return View(agente);
         }
 
         protected override void Dispose(bool disposing)
