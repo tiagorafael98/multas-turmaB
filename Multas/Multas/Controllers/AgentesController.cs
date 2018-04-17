@@ -17,6 +17,10 @@ namespace Multas.Controllers
         private MultasDb db = new MultasDb();
 
         // GET: Agentes
+        /// <summary>
+        /// Lista de todos os agentes
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index() {
 
             //db.Agentes.ToList() --> Em SQL: SELECT * FROM Agentes
@@ -129,7 +133,11 @@ namespace Multas.Controllers
             //Devolve os dados do agente à View
             return View(agente);
         }
-
+        /// <summary>
+        /// edição de cada agente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: Agentes/Edit/5
         public ActionResult Edit(int? id) {
             //se se escrever 'int?' é possivel
@@ -179,6 +187,12 @@ namespace Multas.Controllers
         }
 
         // GET: Agentes/Delete/5
+        /// <summary>
+        /// apresenta na view os dados de um agente,
+        /// com vista à sua eventual 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(int? id) {
 
             //Verificar se foi fornecido um ID válido
