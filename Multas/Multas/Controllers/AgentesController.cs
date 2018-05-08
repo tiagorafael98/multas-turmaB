@@ -8,13 +8,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Multas.Models;
+using Multas_tB.Models;
 
 namespace Multas.Controllers
 {
     public class AgentesController : Controller {
 
         //Cria um objeto privado, que representa a base de dados
-        private MultasDb db = new MultasDb();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agentes
         /// <summary>

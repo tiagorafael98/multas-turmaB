@@ -1,19 +1,20 @@
 namespace Multas.Migrations
 {
     using Multas.Models;
+    using Multas_tB.Models;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MultasDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration() {
             AutomaticMigrationsEnabled = true ;
         }
 
-        protected override void Seed(MultasDb context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //*********************************************************************
             // adiciona AGENTES
