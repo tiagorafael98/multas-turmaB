@@ -51,7 +51,7 @@ namespace Multas_tB.Models
         //Aqui, vamos colocar as intruções relativas às tabelas do 'negócio'
 
         //Descrever os nomes das tabelas na Base de Dados
-        public virtual DbSet<Multas> Multas { get; set; } //Tabela multas
+        public virtual DbSet<Multas.Models.Multas> Multas { get; set; } //Tabela multas
         public virtual DbSet<Condutores> Condutores { get; set; } //Tabela Concudores
         public virtual DbSet<Agentes> Agentes { get; set; } //Tabela Agentes
         public virtual DbSet<Viaturas> Viaturas { get; set; } //Tabela Viaturas
